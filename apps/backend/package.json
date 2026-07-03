@@ -1,0 +1,8 @@
+{
+  "name": "@pawssist/backend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "echo Backend scaffold coming in Sprint 2"
+  }
+}
