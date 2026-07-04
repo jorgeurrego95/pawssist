@@ -67,7 +67,7 @@ export default function HomeScreen() {
 </View>
 
       <View style={styles.sectionHeader}>
-        <Heading>Today's Care</Heading>
+        <Heading>Today's Insights</Heading>
         <Caption>Updated 3 hours ago</Caption>
       </View>
 
@@ -77,7 +77,14 @@ export default function HomeScreen() {
       </View>
 
       <View style={styles.section}>
-        <Button label="Ask Pawssist" variant="cta" />
+        <Heading>Quick Actions</Heading>
+
+        <View style={{ marginTop: 12, gap: 12 }}>
+          <Button label="Add Record" />
+          <Button label="Upload Document" />
+          <Button label="Log Weight" />
+          <Button label="Ask Pawssist" variant="cta" />
+        </View>
       </View>
 
       <View style={styles.sectionHeader}>
