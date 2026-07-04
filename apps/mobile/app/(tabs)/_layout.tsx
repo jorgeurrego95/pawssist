@@ -23,7 +23,7 @@ export default function TabsLayout() {
       <Tabs.Screen name="pets" options={{ title: 'Pets', tabBarIcon: ({ color, size }) => <Ionicons name="paw" color={color} size={size} /> }} />
       <Tabs.Screen name="scan" options={{ title: 'Scan', tabBarIcon: ({ color, size }) => <Ionicons name="scan" color={color} size={size} /> }} />
       <Tabs.Screen name="vault" options={{ title: 'Vault', tabBarIcon: ({ color, size }) => <Ionicons name="folder-open" color={color} size={size} /> }} />
-      <Tabs.Screen name="settings" options={{ title: 'Settings', tabBarIcon: ({ color, size }) => <Ionicons name="settings" color={color} size={size} /> }} />
+      <Tabs.Screen name="assistant" options={{ title: 'Assistant', tabBarIcon: ({ color, size }) => <Ionicons name="chatbubble-ellipses" color={color} size={size} /> }} />
     </Tabs>
   );
 }
