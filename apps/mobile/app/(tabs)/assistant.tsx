@@ -1,50 +1,73 @@
+import { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { colors } from '../../src/theme/colors';
 
 export default function AssistantScreen() {
-  return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Text style={styles.title}>Pawssist Assistant</Text>
-      <Text style={styles.subtitle}>Care that knows your pet.</Text>
 
-      <View style={styles.card}>
-        <Text style={styles.greeting}>Hi Jorge 👋</Text>
-        <Text style={styles.question}>How can I help Bella today?</Text>
+    const [response, setResponse] = useState(
+        "I can help you understand common pet health risks, prepare for vet visits, track care routines, and make safer decisions for Bella."
+      );
 
-        <View style={styles.suggestion}>
-          <Text style={styles.suggestionText}>Can Bella eat watermelon?</Text>
-        </View>
-
-        <View style={styles.suggestion}>
-          <Text style={styles.suggestionText}>How can I prevent heat risk today?</Text>
-        </View>
-
-        <View style={styles.suggestion}>
-          <Text style={styles.suggestionText}>When is Bella's next vaccine?</Text>
-        </View>
-      </View>
-
-      <View style={styles.chatBubble}>
-        <Text style={styles.chatLabel}>Pawssist</Text>
-        <Text style={styles.chatText}>
-          I can help you understand common pet health risks, prepare for vet visits,
-          track care routines, and make safer decisions for Bella. I am not a replacement
-          for a veterinarian, but I can help you know what to watch for and when to seek care.
-        </Text>
-      </View>
-
-      <View style={styles.inputRow}>
-        <TextInput
-          style={styles.input}
-          placeholder="Ask Pawssist..."
-          placeholderTextColor="#9CA3AF"
-        />
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Send</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
-  );
+      return (
+        <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+          <Text style={styles.title}>Pawssist Assistant</Text>
+          <Text style={styles.subtitle}>Care that knows your pet.</Text>
+      
+          <View style={styles.card}>
+            <Text style={styles.greeting}>Hi Jorge 👋</Text>
+            <Text style={styles.question}>How can I help Bella today?</Text>
+      
+            <TouchableOpacity
+              style={styles.suggestion}
+              onPress={() =>
+                setResponse(
+                  "Yes. Watermelon is generally safe for dogs in moderation. Remove seeds and rind before feeding."
+                )
+              }
+            >
+              <Text style={styles.suggestionText}>Can Bella eat watermelon?</Text>
+            </TouchableOpacity>
+      
+            <TouchableOpacity
+              style={styles.suggestion}
+              onPress={() =>
+                setResponse(
+                  "Bring water on walks, avoid strenuous activity during the hottest hours of the day, and watch for excessive panting, drooling, or lethargy."
+                )
+              }
+            >
+              <Text style={styles.suggestionText}>How can I prevent heat risk today?</Text>
+            </TouchableOpacity>
+      
+            <TouchableOpacity
+              style={styles.suggestion}
+              onPress={() =>
+                setResponse(
+                  "Bella's rabies booster is due in 18 days. No action is required today, but you may want to schedule an appointment soon."
+                )
+              }
+            >
+              <Text style={styles.suggestionText}>When is Bella's next vaccine?</Text>
+            </TouchableOpacity>
+          </View>
+      
+          <View style={styles.chatBubble}>
+            <Text style={styles.chatLabel}>Pawssist</Text>
+            <Text style={styles.chatText}>{response}</Text>
+          </View>
+      
+          <View style={styles.inputRow}>
+            <TextInput
+              style={styles.input}
+              placeholder="Ask Pawssist..."
+              placeholderTextColor="#9CA3AF"
+            />
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Send</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      );
 }
 
 const styles = StyleSheet.create({
