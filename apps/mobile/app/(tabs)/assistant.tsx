@@ -8,6 +8,14 @@ export default function AssistantScreen() {
         "I can help you understand common pet health risks, prepare for vet visits, track care routines, and make safer decisions for Bella."
       );
 
+      const [question, setQuestion] = useState("");
+      const handleSend = () => {
+        if (question.trim() === "") return;
+      
+        setResponse(`You asked: ${question}`);
+      
+        setQuestion("");
+      };
       return (
         <ScrollView style={styles.container} contentContainerStyle={styles.content}>
           <Text style={styles.title}>Pawssist Assistant</Text>
@@ -58,11 +66,16 @@ export default function AssistantScreen() {
       
           <View style={styles.inputRow}>
             <TextInput
-              style={styles.input}
-              placeholder="Ask Pawssist..."
-              placeholderTextColor="#9CA3AF"
+             style={styles.input}
+             placeholder="Ask Pawssist..."
+             placeholderTextColor="#9CA3AF"
+             value={question}
+            onChangeText={setQuestion}
             />
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleSend}
+            >
               <Text style={styles.buttonText}>Send</Text>
             </TouchableOpacity>
           </View>
