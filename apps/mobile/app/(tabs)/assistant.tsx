@@ -12,7 +12,26 @@ export default function AssistantScreen() {
       const handleSend = () => {
         if (question.trim() === "") return;
       
-        setResponse(`You asked: ${question}`);
+        if (
+            question.toLowerCase().includes("strawberry") ||
+            question.toLowerCase().includes("strawberries")
+          ) {
+            setResponse(
+              "Yes. Strawberries are generally safe for dogs in moderation."
+            );
+          } else if (question.toLowerCase().includes("watermelon")) {
+            setResponse(
+              "Yes. Watermelon is generally safe for dogs. Remove seeds and rind before feeding."
+            );
+          } else if (question.toLowerCase().includes("vaccine")) {
+            setResponse(
+              "Bella's rabies booster is due in 18 days."
+            );
+          } else {
+            setResponse(
+              "I understand your question, but I don't know the answer yet. Future AI capabilities will help me answer this."
+            );
+          }
       
         setQuestion("");
       };
