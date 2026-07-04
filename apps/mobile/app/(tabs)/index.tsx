@@ -14,12 +14,57 @@ export default function HomeScreen() {
   return (
     <Screen>
       <Caption>Pawssist Alpha</Caption>
-      <DisplayText style={styles.title}>Good morning, Jorge 👋</DisplayText>
-      <Body style={styles.subtitle}>Bella's care is organized and up to date.</Body>
+      <DisplayText style={styles.title}>Good Morning, Jorge </DisplayText>
+      <Body style={styles.subtitle}>Bella is healthy and ready for her next adventure.</Body>
 
       <View style={styles.section}>
         <PetHeroCard pet={pet} />
       </View>
+
+      <View style={styles.section}>
+  <Card>
+    <Heading>Health Status</Heading>
+
+    <Body style={{ marginTop: 12 }}>
+      Excellent ✅
+    </Body>
+
+    <Caption style={{ marginTop: 8 }}>
+      All vaccines and records are up to date.
+    </Caption>
+  </Card>
+</View>
+<View style={styles.section}>
+  <Card>
+    <Heading>Care Score</Heading>
+
+    <DisplayText style={{ marginTop: 12 }}>
+      92 / 100
+    </DisplayText>
+
+    <Caption style={{ marginTop: 8 }}>
+      Excellent
+    </Caption>
+  </Card>
+</View>
+
+<View style={styles.section}>
+  <Card>
+    <Heading>Next Care Event</Heading>
+
+    <DisplayText style={{ marginTop: 12 }}>
+      💉 Rabies Booster
+    </DisplayText>
+
+    <Body style={{ marginTop: 8 }}>
+      18 days remaining
+    </Body>
+
+    <Caption style={{ marginTop: 8 }}>
+      No action required today.
+    </Caption>
+  </Card>
+</View>
 
       <View style={styles.sectionHeader}>
         <Heading>Today's Care</Heading>
