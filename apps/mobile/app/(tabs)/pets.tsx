@@ -12,6 +12,7 @@ export default function PetsScreen() {
   return (
     <Screen>
       <DisplayText>{pet.name}'s Profile</DisplayText>
+
       <Body style={{ marginTop: 8 }}>
         Everything Pawssist knows about {pet.name}, organized in one place.
       </Body>
@@ -62,6 +63,24 @@ export default function PetsScreen() {
 
           <Caption style={{ marginTop: 12 }}>Recommended Action</Caption>
           <Body>Book a vet appointment soon.</Body>
+        </Card>
+      </View>
+
+      <View style={{ marginTop: 16 }}>
+        <Card>
+          <Heading>Care Vault Records</Heading>
+
+          <Caption style={{ marginTop: 12 }}>Vaccinations</Caption>
+          <Body>Rabies Booster • Due in 18 days</Body>
+
+          <Caption style={{ marginTop: 12 }}>Weight History</Caption>
+          <Body>24.3 kg • Last updated today</Body>
+
+          <Caption style={{ marginTop: 12 }}>Medications</Caption>
+          <Body>No active medications</Body>
+
+          <Caption style={{ marginTop: 12 }}>Vet Visits</Caption>
+          <Body>Annual checkup • March 2026</Body>
         </Card>
       </View>
 
