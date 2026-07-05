@@ -85,15 +85,30 @@ export default function HomeScreen() {
       </Card>
 
       <View style={styles.section}>
-        <Heading>Quick Actions</Heading>
+  <Heading>Quick Actions</Heading>
 
-        <View style={{ marginTop: 12, gap: 12 }}>
-          <Button label="Add Record" />
-          <Button label="Upload Document" />
-          <Button label="Log Weight" />
-          <Button label="Ask Pawssist" variant="cta" />
-        </View>
-      </View>
+  <View style={styles.actionGrid}>
+    <View style={styles.actionTile}>
+      <Body style={styles.actionIcon}>💉</Body>
+      <Body style={styles.actionLabel}>Add Vaccine</Body>
+    </View>
+
+    <View style={styles.actionTile}>
+      <Body style={styles.actionIcon}>⚖️</Body>
+      <Body style={styles.actionLabel}>Log Weight</Body>
+    </View>
+
+    <View style={styles.actionTile}>
+      <Body style={styles.actionIcon}>🩺</Body>
+      <Body style={styles.actionLabel}>Vet Visit</Body>
+    </View>
+
+    <View style={styles.actionTileCta}>
+      <Body style={styles.actionIcon}>💬</Body>
+      <Body style={styles.actionLabelCta}>Ask Pawssist</Body>
+    </View>
+  </View>
+</View>
 
       <View style={styles.sectionHeader}>
         <Heading>Recent Records</Heading>
@@ -179,6 +194,45 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: colors.border,
     marginLeft: 72,
+  },
+  actionGrid: {
+    marginTop: 12,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  actionTile: {
+    width: '48%',
+    minHeight: 96,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 14,
+  },
+  actionTileCta: {
+    width: '48%',
+    minHeight: 96,
+    backgroundColor: colors.primary,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 14,
+  },
+  actionIcon: {
+    fontSize: 26,
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  actionLabel: {
+    textAlign: 'center',
+  },
+  actionLabelCta: {
+    textAlign: 'center',
+    color: '#FFFFFF',
+    fontWeight: '700',
   },
   recordRow: {
     flexDirection: 'row',
