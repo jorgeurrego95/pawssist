@@ -2,11 +2,15 @@ import { Pressable, StyleSheet, Text } from 'react-native';
 import { colors } from '../theme/colors';
 import { radius } from '../theme/radius';
 
-type Props = { label: string; variant?: 'primary' | 'cta' | 'quiet' };
+type Props = {
+  label: string;
+  variant?: 'primary' | 'cta' | 'quiet';
+  onPress?: () => void;
+};
 
-export function Button({ label, variant = 'primary' }: Props) {
+export function Button({ label, variant = 'primary', onPress }: Props) {
   return (
-    <Pressable style={[styles.button, styles[variant]]}>
+    <Pressable style={[styles.button, styles[variant]]} onPress={onPress}>
       <Text style={[styles.text, variant === 'quiet' && styles.quietText]}>{label}</Text>
     </Pressable>
   );

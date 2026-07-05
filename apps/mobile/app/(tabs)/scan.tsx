@@ -1,5 +1,7 @@
-import { StyleSheet, View } from 'react-native';
+import { useState } from 'react';
+import { Image, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
 import { Screen } from '../../src/components/Screen';
 import { DisplayText, Body, Heading, Caption } from '../../src/components/Text';
 import { Card } from '../../src/components/Card';
@@ -7,36 +9,62 @@ import { Button } from '../../src/components/Button';
 import { colors } from '../../src/theme/colors';
 
 export default function ScanScreen() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  async function chooseDocument() {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsEditing: true,
+      quality: 0.8,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
+    }
+  }
+
   return (
     <Screen>
       <DisplayText>Smart Scan</DisplayText>
-      <Body style={styles.subtitle}>Point your camera at a vet record. Pawssist will extract the details and organize them for you.</Body>
+      <Body style={styles.subtitle}>
+        Upload a vet record. Pawssist will organize it into your Care Vault.
+      </Body>
 
       <View style={styles.scanner}>
-        <Ionicons name="scan-outline" size={72} color={colors.primary} />
-        <Heading style={{ marginTop: 16 }}>Scan → Organized → Done</Heading>
-        <Caption style={{ marginTop: 8, textAlign: 'center' }}>Vaccine certificates, prescriptions, lab results, invoices, and more.</Caption>
+        {selectedImage ? (
+          <Image source={{ uri: selectedImage }} style={styles.previewImage} />
+        ) : (
+          <>
+            <Ionicons name="scan-outline" size={72} color={colors.primary} />
+            <Heading style={{ marginTop: 16 }}>Scan → Organized → Done</Heading>
+            <Caption style={{ marginTop: 8, textAlign: 'center' }}>
+              Vaccine certificates, prescriptions, lab results, invoices, and more.
+            </Caption>
+          </>
+        )}
       </View>
 
-      <Button label="Start scanning" variant="cta" />
+      <Button label={selectedImage ? 'Choose another document' : 'Choose document'} variant="cta" onPress={chooseDocument} />
+
+      {selectedImage && (
+        <View style={{ marginTop: 14 }}>
+          <Button label="Save to Care Vault" />
+        </View>
+      )}
+
       <View style={{ marginTop: 20 }}>
         <Card>
           <Heading>Care Vault Uploads</Heading>
+          <Caption style={{ marginTop: 12 }}>
+            {selectedImage ? 'Document ready to save.' : 'No documents uploaded yet.'}
+          </Caption>
+        </Card>
+      </View>
 
-          <Body style={styles.list}>📄 Vaccine Record</Body>
-          <Body style={styles.list}>🧾 Vet Invoice</Body>
-          <Body style={styles.list}>🩸 Bloodwork Results</Body>
-          <Body style={styles.list}>💊 Medication Prescription</Body>
-
-         <Caption style={{ marginTop: 12 }}>
-           No documents uploaded yet.
-         </Caption>
-       </Card>
-     </View>
       <View style={{ marginTop: 20 }}>
         <Card>
           <Heading>What happens next?</Heading>
-          <Body style={styles.list}>1. Capture the document</Body>
+          <Body style={styles.list}>1. Capture or upload the document</Body>
           <Body style={styles.list}>2. Review extracted fields</Body>
           <Body style={styles.list}>3. Confirm and save to Care Vault</Body>
         </Card>
@@ -58,7 +86,13 @@ const styles = StyleSheet.create({
     borderColor: colors.mint,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 28
+    padding: 28,
+    overflow: 'hidden',
   },
-  list: { marginTop: 10 }
+  previewImage: {
+    width: '100%',
+    height: 260,
+    borderRadius: 18,
+  },
+  list: { marginTop: 10 },
 });

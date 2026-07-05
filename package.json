@@ -15,5 +15,8 @@
   "scripts": {
     "mobile": "npm --workspace apps/mobile run start",
     "typecheck": "npm --workspace apps/mobile run typecheck"
+  },
+  "dependencies": {
+    "expo-image-picker": "~17.0.11"
   }
 }
