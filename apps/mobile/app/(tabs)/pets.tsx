@@ -83,7 +83,23 @@ export default function PetsScreen() {
           <Body>Annual checkup • March 2026</Body>
         </Card>
       </View>
+      <View style={{ marginTop: 16 }}>
+       <Card>
+          <Heading>Bella's Timeline</Heading>
 
+          <Caption style={{ marginTop: 12 }}>July 2026</Caption>
+          <Body>📅 Rabies booster scheduled</Body>
+
+          <Caption style={{ marginTop: 12 }}>June 2026</Caption>
+          <Body>⚖️ Weight updated to 24.3 kg</Body>
+
+          <Caption style={{ marginTop: 12 }}>March 2026</Caption>
+          <Body>🩺 Annual checkup completed</Body>
+
+          <Caption style={{ marginTop: 12 }}>January 2026</Caption>
+          <Body>💊 Sensitive stomach diagnosed</Body>
+        </Card>
+      </View>
       <View style={{ marginTop: 20 }}>
         <Button label="Edit Bella's Profile" />
       </View>
