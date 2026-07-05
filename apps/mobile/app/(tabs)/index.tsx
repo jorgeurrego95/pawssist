@@ -14,61 +14,44 @@ export default function HomeScreen() {
   return (
     <Screen>
       <Caption>Pawssist Alpha</Caption>
-      <DisplayText style={styles.title}>Good Morning, Jorge </DisplayText>
+      <DisplayText style={styles.title}>Good Morning, Jorge</DisplayText>
       <Body style={styles.subtitle}>Bella is healthy and ready for her next adventure.</Body>
 
       <View style={styles.section}>
         <PetHeroCard pet={pet} />
       </View>
 
-      <View style={styles.section}>
-  <Card>
-    <Heading>Health Status</Heading>
+      <View style={styles.sectionHeader}>
+        <Heading>Today At A Glance</Heading>
+        <Caption>Updated 3 hours ago</Caption>
+      </View>
 
-    <Body style={{ marginTop: 12 }}>
-      Excellent ✅
-    </Body>
+      <View style={styles.glanceRow}>
+        <View style={styles.glanceCard}>
+          <Body style={styles.glanceIcon}>🛡️</Body>
+          <Caption style={styles.glanceLabel}>Care Score</Caption>
+          <Heading style={styles.glanceMetric}>92/100</Heading>
+          <Caption style={styles.glanceCaption}>Excellent</Caption>
+        </View>
 
-    <Caption style={{ marginTop: 8 }}>
-      All vaccines and records are up to date.
-    </Caption>
-  </Card>
-</View>
-<View style={styles.section}>
-  <Card>
-    <Heading>Care Score</Heading>
+        <View style={styles.glanceCard}>
+          <Body style={styles.glanceIcon}>📅</Body>
+          <Caption style={styles.glanceLabel}>Next Event</Caption>
+          <Heading style={styles.glanceMetric}>18 days</Heading>
+          <Caption style={styles.glanceCaption}>Rabies Booster</Caption>
+        </View>
 
-    <DisplayText style={{ marginTop: 12 }}>
-      92 / 100
-    </DisplayText>
-
-    <Caption style={{ marginTop: 8 }}>
-      Excellent
-    </Caption>
-  </Card>
-</View>
-
-<View style={styles.section}>
-  <Card>
-    <Heading>Next Care Event</Heading>
-
-    <DisplayText style={{ marginTop: 12 }}>
-      💉 Rabies Booster
-    </DisplayText>
-
-    <Body style={{ marginTop: 8 }}>
-      18 days remaining
-    </Body>
-
-    <Caption style={{ marginTop: 8 }}>
-      No action required today.
-    </Caption>
-  </Card>
-</View>
+        <View style={styles.glanceCard}>
+          <Body style={styles.glanceIcon}>📄</Body>
+          <Caption style={styles.glanceLabel}>Records</Caption>
+          <Heading style={styles.glanceMetric}>12</Heading>
+          <Caption style={styles.glanceCaption}>In your vault</Caption>
+        </View>
+      </View>
 
       <View style={styles.sectionHeader}>
         <Heading>Today's Insights</Heading>
-        <Caption>Updated 3 hours ago</Caption>
+        <Caption>See all</Caption>
       </View>
 
       <View style={styles.stack}>
@@ -108,9 +91,59 @@ const styles = StyleSheet.create({
   title: { marginTop: 8 },
   subtitle: { marginTop: 8, color: colors.muted },
   section: { marginTop: 20 },
-  sectionHeader: { marginTop: 28, marginBottom: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' },
+  sectionHeader: {
+    marginTop: 28,
+    marginBottom: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+  },
+  glanceRow: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  glanceCard: {
+    flex: 1,
+    minHeight: 140,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 4,
+    paddingVertical: 16,
+  },
+  glanceIcon: {
+    textAlign: 'center',
+    fontSize: 24,
+  },
+  glanceLabel: {
+    marginTop: 10,
+    textAlign: 'center',
+  },
+  glanceMetric: {
+    marginTop: 4,
+    textAlign: 'center',
+  },
+  glanceCaption: {
+    textAlign: 'center',
+  },
   stack: { gap: 12 },
-  recordRow: { flexDirection: 'row', gap: 10, alignItems: 'center', paddingVertical: 12 },
-  recordBorder: { borderBottomWidth: 1, borderBottomColor: colors.border },
-  dot: { width: 8, height: 8, borderRadius: 4, backgroundColor: colors.accent }
+  recordRow: {
+    flexDirection: 'row',
+    gap: 10,
+    alignItems: 'center',
+    paddingVertical: 12,
+  },
+  recordBorder: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: colors.accent,
+  },
 });

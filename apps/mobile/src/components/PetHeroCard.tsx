@@ -39,6 +39,7 @@ export function PetHeroCard({ pet }: { pet: Pet }) {
         <Image
           source={require('../../assets/images/Bella Test.png')}
           style={styles.petPhoto}
+          resizeMode="cover"
         />
       </View>
     </Card>
@@ -77,8 +78,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   petPhoto: {
-    width: 140,
-    height: 180,
+    width: 130,
+    height: 120,
     borderRadius: 24,
     backgroundColor: colors.mint,
   },
