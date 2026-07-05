@@ -19,7 +19,20 @@ export default function ScanScreen() {
       </View>
 
       <Button label="Start scanning" variant="cta" />
+      <View style={{ marginTop: 20 }}>
+        <Card>
+          <Heading>Care Vault Uploads</Heading>
 
+          <Body style={styles.list}>📄 Vaccine Record</Body>
+          <Body style={styles.list}>🧾 Vet Invoice</Body>
+          <Body style={styles.list}>🩸 Bloodwork Results</Body>
+          <Body style={styles.list}>💊 Medication Prescription</Body>
+
+         <Caption style={{ marginTop: 12 }}>
+           No documents uploaded yet.
+         </Caption>
+       </Card>
+     </View>
       <View style={{ marginTop: 20 }}>
         <Card>
           <Heading>What happens next?</Heading>
