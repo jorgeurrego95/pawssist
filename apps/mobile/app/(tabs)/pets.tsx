@@ -35,7 +35,20 @@ export default function PetsScreen() {
           <Body>{pet.weightKg} kg</Body>
         </Card>
       </View>
+      <View style={{ marginTop: 16 }}>
+        <Card>
+          <Heading>Care Alerts</Heading>
 
+          <Caption style={{ marginTop: 12 }}>Upcoming Reminder</Caption>
+          <Body>Rabies Booster</Body>
+
+          <Caption style={{ marginTop: 12 }}>Due In</Caption>
+          <Body>18 days</Body>
+
+          <Caption style={{ marginTop: 12 }}>Priority</Caption>
+          <Body>Medium</Body>
+        </Card>
+      </View>
       <View style={{ marginTop: 16 }}>
         <Card>
           <Heading>Care Details</Heading>
