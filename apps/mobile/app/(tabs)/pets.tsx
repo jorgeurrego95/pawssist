@@ -35,6 +35,18 @@ export default function PetsScreen() {
           <Body>{pet.weightKg} kg</Body>
         </Card>
       </View>
+
+      <View style={{ marginTop: 16 }}>
+        <Card>
+          <Heading>Quick Care Actions</Heading>
+
+          <Body style={{ marginTop: 16 }}>➕ Add Vaccine</Body>
+          <Body style={{ marginTop: 12 }}>⚖️ Log Weight</Body>
+          <Body style={{ marginTop: 12 }}>🩺 Record Vet Visit</Body>
+          <Body style={{ marginTop: 12 }}>💊 Add Medication</Body>
+        </Card>
+      </View>
+
       <View style={{ marginTop: 16 }}>
         <Card>
           <Heading>Care Alerts</Heading>
@@ -49,6 +61,7 @@ export default function PetsScreen() {
           <Body>Medium</Body>
         </Card>
       </View>
+
       <View style={{ marginTop: 16 }}>
         <Card>
           <Heading>Care Details</Heading>
@@ -96,8 +109,9 @@ export default function PetsScreen() {
           <Body>Annual checkup • March 2026</Body>
         </Card>
       </View>
+
       <View style={{ marginTop: 16 }}>
-       <Card>
+        <Card>
           <Heading>Bella's Timeline</Heading>
 
           <Caption style={{ marginTop: 12 }}>July 2026</Caption>
@@ -113,6 +127,7 @@ export default function PetsScreen() {
           <Body>💊 Sensitive stomach diagnosed</Body>
         </Card>
       </View>
+
       <View style={{ marginTop: 20 }}>
         <Button label="Edit Bella's Profile" />
       </View>
