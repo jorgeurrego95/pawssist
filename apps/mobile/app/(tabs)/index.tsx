@@ -1,8 +1,8 @@
 import { StyleSheet, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { Screen } from '../../src/components/Screen';
 import { Body, Caption, DisplayText, Heading } from '../../src/components/Text';
 import { PetHeroCard } from '../../src/components/PetHeroCard';
-import { InsightCard } from '../../src/components/InsightCard';
 import { Button } from '../../src/components/Button';
 import { pets, careInsights, recentRecords } from '../../src/data/mock';
 import { Card } from '../../src/components/Card';
@@ -54,10 +54,35 @@ export default function HomeScreen() {
         <Caption>See all</Caption>
       </View>
 
-      <View style={styles.stack}>
-        <InsightCard title={careInsights[0].title} body={careInsights[0].body} icon="checkmark-circle" />
-        <InsightCard title={careInsights[1].title} body={careInsights[1].body} icon="sunny" />
-      </View>
+      <Card>
+        <View style={styles.insightRow}>
+          <View style={styles.insightIconCircle}>
+            <Ionicons name="checkmark-circle" size={28} color={colors.primary} />
+          </View>
+
+          <View style={styles.insightText}>
+            <Heading>{careInsights[0].title}</Heading>
+            <Caption style={styles.insightBody}>{careInsights[0].body}</Caption>
+          </View>
+
+          <Ionicons name="chevron-forward" size={22} color={colors.muted} />
+        </View>
+
+        <View style={styles.insightDivider} />
+
+        <View style={styles.insightRow}>
+          <View style={styles.insightIconCircle}>
+            <Ionicons name="sunny" size={28} color={colors.primary} />
+          </View>
+
+          <View style={styles.insightText}>
+            <Heading>{careInsights[1].title}</Heading>
+            <Caption style={styles.insightBody}>{careInsights[1].body}</Caption>
+          </View>
+
+          <Ionicons name="chevron-forward" size={22} color={colors.muted} />
+        </View>
+      </Card>
 
       <View style={styles.section}>
         <Heading>Quick Actions</Heading>
@@ -129,7 +154,32 @@ const styles = StyleSheet.create({
   glanceCaption: {
     textAlign: 'center',
   },
-  stack: { gap: 12 },
+  insightRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 14,
+    paddingVertical: 12,
+  },
+  insightIconCircle: {
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    backgroundColor: colors.mint,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  insightText: {
+    flex: 1,
+  },
+  insightBody: {
+    marginTop: 4,
+    lineHeight: 22,
+  },
+  insightDivider: {
+    height: 1,
+    backgroundColor: colors.border,
+    marginLeft: 72,
+  },
   recordRow: {
     flexDirection: 'row',
     gap: 10,
