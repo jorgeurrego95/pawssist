@@ -1,7 +1,8 @@
-import { View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { Screen } from '../../src/components/Screen';
 import { DisplayText, Body, Heading, Caption } from '../../src/components/Text';
 import { Card } from '../../src/components/Card';
+import { colors } from '../../src/theme/colors';
 import { useVault } from '../../src/context/VaultContext';
 
 const items = [
@@ -11,6 +12,14 @@ const items = [
   ['📄', 'Vet Records', '4 documents'],
 ];
 
+function formatUploadDate(date: string) {
+  return new Date(date).toLocaleDateString('en-CA', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+
 export default function VaultScreen() {
   const { uploads } = useVault();
 
@@ -18,11 +27,11 @@ export default function VaultScreen() {
     <Screen>
       <DisplayText>Care Vault</DisplayText>
 
-      <Body style={{ marginTop: 8 }}>
+      <Body style={styles.subtitle}>
         Every important record, safely organized and ready when you need it.
       </Body>
 
-      <View style={{ marginTop: 24, gap: 12 }}>
+      <View style={styles.categoryList}>
         {items.map(([emoji, title, detail]) => (
           <Card key={title}>
             <Heading>
@@ -33,7 +42,7 @@ export default function VaultScreen() {
         ))}
       </View>
 
-      <View style={{ marginTop: 24 }}>
+      <View style={styles.uploadSection}>
         <Card>
           <Heading>Recent Uploads</Heading>
 
@@ -42,14 +51,61 @@ export default function VaultScreen() {
               No uploaded documents yet.
             </Caption>
           ) : (
-            uploads.map((upload) => (
-              <Body key={upload.id} style={{ marginTop: 12 }}>
-                📄 {upload.name}
-              </Body>
-            ))
+            <View style={styles.uploadList}>
+              {uploads.map((upload) => (
+                <View key={upload.id} style={styles.uploadRow}>
+                  <Image source={{ uri: upload.uri }} style={styles.thumbnail} />
+
+                  <View style={styles.uploadCopy}>
+                    <Body style={styles.uploadName}>{upload.name}</Body>
+                    <Caption style={styles.uploadDate}>
+                      Uploaded {formatUploadDate(upload.createdAt)}
+                    </Caption>
+                  </View>
+                </View>
+              ))}
+            </View>
           )}
         </Card>
       </View>
     </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  subtitle: {
+    marginTop: 8,
+  },
+  categoryList: {
+    marginTop: 24,
+    gap: 12,
+  },
+  uploadSection: {
+    marginTop: 24,
+  },
+  uploadList: {
+    marginTop: 14,
+    gap: 14,
+  },
+  uploadRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    paddingVertical: 4,
+  },
+  thumbnail: {
+    width: 54,
+    height: 54,
+    borderRadius: 14,
+    backgroundColor: colors.lightMint,
+  },
+  uploadCopy: {
+    flex: 1,
+  },
+  uploadName: {
+    fontWeight: '700',
+  },
+  uploadDate: {
+    marginTop: 4,
+  },
+});
