@@ -3,22 +3,26 @@ import { Ionicons } from '@expo/vector-icons';
 import { Screen } from '../../src/components/Screen';
 import { Body, Caption, DisplayText, Heading } from '../../src/components/Text';
 import { PetHeroCard } from '../../src/components/PetHeroCard';
-import { Button } from '../../src/components/Button';
 import { pets, careInsights, recentRecords } from '../../src/data/mock';
 import { Card } from '../../src/components/Card';
 import { colors } from '../../src/theme/colors';
+import { usePet } from '../../src/context/PetContext';
 
 export default function HomeScreen() {
-  const pet = pets[0];
+  const { activePet } = usePet();
+
+  const petDetails = pets.find((pet) => pet.name === activePet.name) ?? pets[0];
 
   return (
     <Screen>
       <Caption>Pawssist Alpha</Caption>
       <DisplayText style={styles.title}>Good Morning, Jorge</DisplayText>
-      <Body style={styles.subtitle}>Bella is healthy and ready for her next adventure.</Body>
+      <Body style={styles.subtitle}>
+        {activePet.name} is healthy and ready for the next adventure.
+      </Body>
 
       <View style={styles.section}>
-        <PetHeroCard pet={pet} />
+        <PetHeroCard pet={petDetails} />
       </View>
 
       <View style={styles.sectionHeader}>
@@ -50,7 +54,7 @@ export default function HomeScreen() {
       </View>
 
       <View style={styles.sectionHeader}>
-        <Heading>Today's Insights</Heading>
+        <Heading>{activePet.name}'s Insights</Heading>
         <Caption>See all</Caption>
       </View>
 
@@ -85,39 +89,45 @@ export default function HomeScreen() {
       </Card>
 
       <View style={styles.section}>
-  <Heading>Quick Actions</Heading>
+        <Heading>Quick Actions</Heading>
 
-  <View style={styles.actionGrid}>
-    <View style={styles.actionTile}>
-      <Body style={styles.actionIcon}>💉</Body>
-      <Body style={styles.actionLabel}>Add Vaccine</Body>
-    </View>
+        <View style={styles.actionGrid}>
+          <View style={styles.actionTile}>
+            <Body style={styles.actionIcon}>💉</Body>
+            <Body style={styles.actionLabel}>Add Vaccine</Body>
+          </View>
 
-    <View style={styles.actionTile}>
-      <Body style={styles.actionIcon}>⚖️</Body>
-      <Body style={styles.actionLabel}>Log Weight</Body>
-    </View>
+          <View style={styles.actionTile}>
+            <Body style={styles.actionIcon}>⚖️</Body>
+            <Body style={styles.actionLabel}>Log Weight</Body>
+          </View>
 
-    <View style={styles.actionTile}>
-      <Body style={styles.actionIcon}>🩺</Body>
-      <Body style={styles.actionLabel}>Vet Visit</Body>
-    </View>
+          <View style={styles.actionTile}>
+            <Body style={styles.actionIcon}>🩺</Body>
+            <Body style={styles.actionLabel}>Vet Visit</Body>
+          </View>
 
-    <View style={styles.actionTileCta}>
-      <Body style={styles.actionIcon}>💬</Body>
-      <Body style={styles.actionLabelCta}>Ask Pawssist</Body>
-    </View>
-  </View>
-</View>
+          <View style={styles.actionTileCta}>
+            <Body style={styles.actionIcon}>💬</Body>
+            <Body style={styles.actionLabelCta}>Ask Pawssist</Body>
+          </View>
+        </View>
+      </View>
 
       <View style={styles.sectionHeader}>
-        <Heading>Recent Records</Heading>
+        <Heading>{activePet.name}'s Recent Records</Heading>
         <Caption>Care Vault</Caption>
       </View>
 
       <Card>
         {recentRecords.map((record, index) => (
-          <View key={record} style={[styles.recordRow, index !== recentRecords.length - 1 && styles.recordBorder]}>
+          <View
+            key={record}
+            style={[
+              styles.recordRow,
+              index !== recentRecords.length - 1 && styles.recordBorder,
+            ]}
+          >
             <View style={styles.dot} />
             <Body>{record}</Body>
           </View>

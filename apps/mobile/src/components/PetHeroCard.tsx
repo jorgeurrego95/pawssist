@@ -4,7 +4,14 @@ import { Body, Caption, Heading, Metric } from './Text';
 import { Pet } from '../types/pet';
 import { colors } from '../theme/colors';
 
+const petImages = {
+  bella: require('../../assets/images/Bella Test.png'),
+  zeus: require('../../assets/images/Zeus Test.png'),
+};
+
 export function PetHeroCard({ pet }: { pet: Pet }) {
+  const petImage = petImages[pet.id as keyof typeof petImages] ?? petImages.bella;
+
   return (
     <Card>
       <View style={styles.hero}>
@@ -31,16 +38,12 @@ export function PetHeroCard({ pet }: { pet: Pet }) {
           </View>
 
           <View style={styles.nextCare}>
-            <Body>💉 Next: Rabies Booster</Body>
+            <Body>💉 Next: {pet.nextVaccine}</Body>
             <Caption>Due soon</Caption>
           </View>
         </View>
 
-        <Image
-          source={require('../../assets/images/Bella Test.png')}
-          style={styles.petPhoto}
-          resizeMode="cover"
-        />
+        <Image source={petImage} style={styles.petPhoto} resizeMode="cover" />
       </View>
     </Card>
   );
