@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 type Pet = {
   id: string;
@@ -12,6 +13,8 @@ type PetContextValue = {
   activePet: Pet;
   setActivePet: (id: string) => void;
 };
+
+const ACTIVE_PET_STORAGE_KEY = 'pawssist-active-pet-id';
 
 const defaultPets: Pet[] = [
   {
@@ -34,11 +37,23 @@ export function PetProvider({ children }: { children: ReactNode }) {
   const [pets] = useState(defaultPets);
   const [activePetId, setActivePetId] = useState('bella');
 
-  const activePet =
-    pets.find((pet) => pet.id === activePetId) ?? pets[0];
+  useEffect(() => {
+    async function loadActivePet() {
+      const savedPetId = await AsyncStorage.getItem(ACTIVE_PET_STORAGE_KEY);
 
-  function setActivePet(id: string) {
+      if (savedPetId && pets.some((pet) => pet.id === savedPetId)) {
+        setActivePetId(savedPetId);
+      }
+    }
+
+    loadActivePet();
+  }, [pets]);
+
+  const activePet = pets.find((pet) => pet.id === activePetId) ?? pets[0];
+
+  async function setActivePet(id: string) {
     setActivePetId(id);
+    await AsyncStorage.setItem(ACTIVE_PET_STORAGE_KEY, id);
   }
 
   return (
