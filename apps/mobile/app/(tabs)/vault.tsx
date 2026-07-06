@@ -2,20 +2,18 @@ import { View } from 'react-native';
 import { Screen } from '../../src/components/Screen';
 import { DisplayText, Body, Heading, Caption } from '../../src/components/Text';
 import { Card } from '../../src/components/Card';
+import { useVault } from '../../src/context/VaultContext';
 
 const items = [
   ['💉', 'Vaccines', '3 records'],
   ['💊', 'Medications', '1 active'],
   ['⚖️', 'Weight', '6 entries'],
-  ['📄', 'Vet Records', '4 documents']
-];
-
-const recentUploads = [
-  'Rabies Certificate.pdf',
-  'Vet Invoice.jpg',
+  ['📄', 'Vet Records', '4 documents'],
 ];
 
 export default function VaultScreen() {
+  const { uploads } = useVault();
+
   return (
     <Screen>
       <DisplayText>Care Vault</DisplayText>
@@ -39,11 +37,17 @@ export default function VaultScreen() {
         <Card>
           <Heading>Recent Uploads</Heading>
 
-          {recentUploads.map((file) => (
-            <Body key={file} style={{ marginTop: 12 }}>
-              📄 {file}
-            </Body>
-          ))}
+          {uploads.length === 0 ? (
+            <Caption style={{ marginTop: 12 }}>
+              No uploaded documents yet.
+            </Caption>
+          ) : (
+            uploads.map((upload) => (
+              <Body key={upload.id} style={{ marginTop: 12 }}>
+                📄 {upload.name}
+              </Body>
+            ))
+          )}
         </Card>
       </View>
     </Screen>

@@ -7,9 +7,12 @@ import { DisplayText, Body, Heading, Caption } from '../../src/components/Text';
 import { Card } from '../../src/components/Card';
 import { Button } from '../../src/components/Button';
 import { colors } from '../../src/theme/colors';
+import { useVault } from '../../src/context/VaultContext';
 
 export default function ScanScreen() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [saved, setSaved] = useState(false);
+  const { addUpload } = useVault();
 
   async function chooseDocument() {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -20,12 +23,25 @@ export default function ScanScreen() {
 
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri);
+      setSaved(false);
     }
+  }
+
+  function saveToVault() {
+    if (!selectedImage) return;
+
+    addUpload({
+      name: 'Uploaded vet record.jpg',
+      uri: selectedImage,
+    });
+
+    setSaved(true);
   }
 
   return (
     <Screen>
       <DisplayText>Smart Scan</DisplayText>
+
       <Body style={styles.subtitle}>
         Upload a vet record. Pawssist will organize it into your Care Vault.
       </Body>
@@ -44,19 +60,32 @@ export default function ScanScreen() {
         )}
       </View>
 
-      <Button label={selectedImage ? 'Choose another document' : 'Choose document'} variant="cta" onPress={chooseDocument} />
+      <Button
+        label={selectedImage ? 'Choose another document' : 'Choose document'}
+        variant="cta"
+        onPress={chooseDocument}
+      />
 
       {selectedImage && (
         <View style={{ marginTop: 14 }}>
-          <Button label="Save to Care Vault" />
+          <Button
+            label={saved ? 'Saved to Care Vault' : 'Save to Care Vault'}
+            variant={saved ? 'quiet' : 'primary'}
+            onPress={saveToVault}
+          />
         </View>
       )}
 
       <View style={{ marginTop: 20 }}>
         <Card>
           <Heading>Care Vault Uploads</Heading>
+
           <Caption style={{ marginTop: 12 }}>
-            {selectedImage ? 'Document ready to save.' : 'No documents uploaded yet.'}
+            {saved
+              ? 'Document saved. Open the Vault tab to see it.'
+              : selectedImage
+                ? 'Document ready to save.'
+                : 'No documents uploaded yet.'}
           </Caption>
         </Card>
       </View>
