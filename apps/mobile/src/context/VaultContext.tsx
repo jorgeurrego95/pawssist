@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type VaultUpload = {
   id: string;
@@ -12,10 +13,43 @@ type VaultContextValue = {
   addUpload: (upload: Omit<VaultUpload, 'id' | 'createdAt'>) => void;
 };
 
+const STORAGE_KEY = 'pawssist_uploads';
+
 const VaultContext = createContext<VaultContextValue | undefined>(undefined);
 
 export function VaultProvider({ children }: { children: ReactNode }) {
   const [uploads, setUploads] = useState<VaultUpload[]>([]);
+
+  useEffect(() => {
+    loadUploads();
+  }, []);
+
+  useEffect(() => {
+    saveUploads();
+  }, [uploads]);
+
+  async function loadUploads() {
+    try {
+      const stored = await AsyncStorage.getItem(STORAGE_KEY);
+
+      if (stored) {
+        setUploads(JSON.parse(stored));
+      }
+    } catch (error) {
+      console.log('Failed to load uploads', error);
+    }
+  }
+
+  async function saveUploads() {
+    try {
+      await AsyncStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(uploads)
+      );
+    } catch (error) {
+      console.log('Failed to save uploads', error);
+    }
+  }
 
   function addUpload(upload: Omit<VaultUpload, 'id' | 'createdAt'>) {
     const newUpload: VaultUpload = {
@@ -24,7 +58,10 @@ export function VaultProvider({ children }: { children: ReactNode }) {
       createdAt: new Date().toISOString(),
     };
 
-    setUploads((currentUploads) => [newUpload, ...currentUploads]);
+    setUploads((currentUploads) => [
+      newUpload,
+      ...currentUploads,
+    ]);
   }
 
   return (
