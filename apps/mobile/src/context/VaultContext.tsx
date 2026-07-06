@@ -11,6 +11,7 @@ type VaultUpload = {
 type VaultContextValue = {
   uploads: VaultUpload[];
   addUpload: (upload: Omit<VaultUpload, 'id' | 'createdAt'>) => void;
+  deleteUpload: (id: string) => void;
 };
 
 const STORAGE_KEY = 'pawssist_uploads';
@@ -42,10 +43,7 @@ export function VaultProvider({ children }: { children: ReactNode }) {
 
   async function saveUploads() {
     try {
-      await AsyncStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(uploads)
-      );
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(uploads));
     } catch (error) {
       console.log('Failed to save uploads', error);
     }
@@ -58,14 +56,17 @@ export function VaultProvider({ children }: { children: ReactNode }) {
       createdAt: new Date().toISOString(),
     };
 
-    setUploads((currentUploads) => [
-      newUpload,
-      ...currentUploads,
-    ]);
+    setUploads((currentUploads) => [newUpload, ...currentUploads]);
+  }
+
+  function deleteUpload(id: string) {
+    setUploads((currentUploads) =>
+      currentUploads.filter((upload) => upload.id !== id)
+    );
   }
 
   return (
-    <VaultContext.Provider value={{ uploads, addUpload }}>
+    <VaultContext.Provider value={{ uploads, addUpload, deleteUpload }}>
       {children}
     </VaultContext.Provider>
   );

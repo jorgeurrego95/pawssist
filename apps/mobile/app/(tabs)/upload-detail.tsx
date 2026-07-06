@@ -18,20 +18,32 @@ function formatUploadDate(date: string) {
 
 export default function UploadDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { uploads } = useVault();
+  const { uploads, deleteUpload } = useVault();
 
   const upload = uploads.find((item) => item.id === id);
+
+  function handleDelete() {
+    if (!id) return;
+
+    deleteUpload(id);
+    router.push('/vault');
+  }
 
   if (!upload) {
     return (
       <Screen>
         <DisplayText>Upload Not Found</DisplayText>
+
         <Body style={styles.subtitle}>
           This document may have been removed or is no longer available.
         </Body>
 
         <View style={{ marginTop: 20 }}>
-          <Button label="Back to Vault" variant="cta" onPress={() => router.push('/vault')} />
+          <Button
+            label="Back to Vault"
+            variant="cta"
+            onPress={() => router.push('/vault')}
+          />
         </View>
       </Screen>
     );
@@ -40,7 +52,13 @@ export default function UploadDetailScreen() {
   return (
     <Screen>
       <View style={styles.headerRow}>
-        <Ionicons name="chevron-back" size={28} color={colors.primary} onPress={() => router.back()} />
+        <Ionicons
+          name="chevron-back"
+          size={28}
+          color={colors.primary}
+          onPress={() => router.back()}
+        />
+
         <Caption>Care Vault Document</Caption>
       </View>
 
@@ -74,7 +92,11 @@ export default function UploadDetailScreen() {
       </View>
 
       <View style={{ marginTop: 16 }}>
-        <Button label="Delete Upload" variant="quiet" />
+        <Button
+          label="Delete Upload"
+          variant="quiet"
+          onPress={handleDelete}
+        />
       </View>
     </Screen>
   );
