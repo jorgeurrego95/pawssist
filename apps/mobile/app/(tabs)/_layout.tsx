@@ -111,6 +111,13 @@ export default function TabsLayout() {
             ),
           }}
         />
+
+        <Tabs.Screen
+          name="upload-detail"
+          options={{
+            href: null,
+          }}
+        />
       </Tabs>
     </VaultProvider>
   );

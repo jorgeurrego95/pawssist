@@ -1,4 +1,6 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
+import { router } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { Screen } from '../../src/components/Screen';
 import { DisplayText, Body, Heading, Caption } from '../../src/components/Text';
 import { Card } from '../../src/components/Card';
@@ -53,7 +55,16 @@ export default function VaultScreen() {
           ) : (
             <View style={styles.uploadList}>
               {uploads.map((upload) => (
-                <View key={upload.id} style={styles.uploadRow}>
+                <Pressable
+                  key={upload.id}
+                  style={styles.uploadRow}
+                  onPress={() =>
+                    router.push({
+                      pathname: '/upload-detail',
+                      params: { id: upload.id },
+                    })
+                  }
+                >
                   <Image source={{ uri: upload.uri }} style={styles.thumbnail} />
 
                   <View style={styles.uploadCopy}>
@@ -62,7 +73,13 @@ export default function VaultScreen() {
                       Uploaded {formatUploadDate(upload.createdAt)}
                     </Caption>
                   </View>
-                </View>
+
+                  <Ionicons
+                    name="chevron-forward"
+                    size={22}
+                    color={colors.muted}
+                  />
+                </Pressable>
               ))}
             </View>
           )}
@@ -91,7 +108,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
-    paddingVertical: 4,
+    paddingVertical: 6,
   },
   thumbnail: {
     width: 54,
