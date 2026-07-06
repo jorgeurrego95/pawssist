@@ -3,15 +3,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { Screen } from '../../src/components/Screen';
 import { Body, Caption, DisplayText, Heading } from '../../src/components/Text';
 import { PetHeroCard } from '../../src/components/PetHeroCard';
-import { pets, careInsights, recentRecords } from '../../src/data/mock';
+import { careInsights, recentRecords } from '../../src/data/mock';
 import { Card } from '../../src/components/Card';
 import { colors } from '../../src/theme/colors';
 import { usePet } from '../../src/context/PetContext';
 
 export default function HomeScreen() {
   const { activePet } = usePet();
-
-  const petDetails = pets.find((pet) => pet.name === activePet.name) ?? pets[0];
 
   return (
     <Screen>
@@ -22,7 +20,7 @@ export default function HomeScreen() {
       </Body>
 
       <View style={styles.section}>
-        <PetHeroCard pet={petDetails} />
+        <PetHeroCard pet={activePet} />
       </View>
 
       <View style={styles.sectionHeader}>
@@ -42,7 +40,7 @@ export default function HomeScreen() {
           <Body style={styles.glanceIcon}>📅</Body>
           <Caption style={styles.glanceLabel}>Next Event</Caption>
           <Heading style={styles.glanceMetric}>18 days</Heading>
-          <Caption style={styles.glanceCaption}>Rabies Booster</Caption>
+          <Caption style={styles.glanceCaption}>{activePet.nextVaccine}</Caption>
         </View>
 
         <View style={styles.glanceCard}>
@@ -65,8 +63,10 @@ export default function HomeScreen() {
           </View>
 
           <View style={styles.insightText}>
-            <Heading>{careInsights[0].title}</Heading>
-            <Caption style={styles.insightBody}>{careInsights[0].body}</Caption>
+            <Heading>{activePet.name} is doing well today</Heading>
+            <Caption style={styles.insightBody}>
+              No medications due. Stay on track with {activePet.name}'s upcoming care reminders.
+            </Caption>
           </View>
 
           <Ionicons name="chevron-forward" size={22} color={colors.muted} />

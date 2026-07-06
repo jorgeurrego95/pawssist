@@ -76,7 +76,7 @@ export default function UploadDetailScreen() {
 
           <View style={styles.detailRow}>
             <Caption>Pet Name</Caption>
-            <Body>Bella</Body>
+            <Body>Not assigned yet</Body>
           </View>
 
           <View style={styles.detailRow}>

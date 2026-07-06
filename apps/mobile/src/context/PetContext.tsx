@@ -1,12 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-
-type Pet = {
-  id: string;
-  name: string;
-  breed: string;
-  age: string;
-};
+import { Pet } from '../types/pet';
 
 type PetContextValue = {
   pets: Pet[];
@@ -20,14 +14,24 @@ const defaultPets: Pet[] = [
   {
     id: 'bella',
     name: 'Bella',
+    species: 'dog',
     breed: 'Labrador Retriever',
     age: '4 years',
+    weightKg: 24.3,
+    nextVaccine: 'Rabies booster in 18 days',
+    food: 'Royal Canin • 2 meals/day',
+    conditions: ['Sensitive stomach'],
   },
   {
     id: 'zeus',
     name: 'Zeus',
+    species: 'dog',
     breed: 'German Shepherd',
     age: '5 years',
+    weightKg: 31.8,
+    nextVaccine: 'Annual wellness exam in 30 days',
+    food: 'Purina Pro Plan • 2 meals/day',
+    conditions: ['None reported'],
   },
 ];
 
