@@ -31,6 +31,7 @@ export default function TabsLayout() {
         <Tabs.Screen name="assistant" options={{ title: 'Assistant', tabBarIcon: ({ color, focused }) => <Ionicons name={focused ? 'chatbubble-ellipses' : 'chatbubble-ellipses-outline'} color={color} size={24} /> }} />
         <Tabs.Screen name="settings" options={{ title: 'Settings', tabBarIcon: ({ color, focused }) => <Ionicons name={focused ? 'settings' : 'settings-outline'} color={color} size={24} /> }} />
         <Tabs.Screen name="upload-detail" options={{ href: null }} />
+        <Tabs.Screen name="add-pet" options={{ href: null }} />
       </Tabs>
     </VaultProvider>
   );

@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, View } from 'react-native';
+import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Screen } from '../../src/components/Screen';
 import { DisplayText, Body, Heading, Caption } from '../../src/components/Text';
@@ -17,7 +18,7 @@ export default function PetsScreen() {
         Manage every pet in your household and choose who Pawssist should focus on.
       </Body>
 
-      <Pressable style={styles.addPetButton}>
+      <Pressable style={styles.addPetButton} onPress={() => router.push('/add-pet')}>
         <Ionicons name="add-circle" size={24} color="#FFFFFF" />
         <Body style={styles.addPetText}>Add Pet</Body>
       </Pressable>
