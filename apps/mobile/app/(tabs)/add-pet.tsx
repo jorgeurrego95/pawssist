@@ -8,7 +8,7 @@ import { colors } from '../../src/theme/colors';
 import { usePet } from '../../src/context/PetContext';
 
 export default function AddPetScreen() {
-  const { addPet } = usePet();
+  const { pets, addPet } = usePet();
 
   const [name, setName] = useState('');
   const [breed, setBreed] = useState('');
@@ -19,14 +19,22 @@ export default function AddPetScreen() {
     const cleanName = name.trim();
     const cleanBreed = breed.trim();
     const cleanAge = age.trim();
+    const petId = cleanName.toLowerCase().replaceAll(' ', '-');
 
     if (!cleanName) {
       setError('Pet name is required.');
       return;
     }
 
+    const petAlreadyExists = pets.some((pet) => pet.id === petId);
+
+    if (petAlreadyExists) {
+      setError('A pet with this name already exists.');
+      return;
+    }
+
     addPet({
-      id: cleanName.toLowerCase().replaceAll(' ', '-'),
+      id: petId,
       name: cleanName,
       species: 'dog',
       breed: cleanBreed || 'Not added yet',
