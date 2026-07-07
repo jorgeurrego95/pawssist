@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { router } from 'expo-router';
 import { Screen } from '../../src/components/Screen';
@@ -6,6 +7,10 @@ import { Button } from '../../src/components/Button';
 import { colors } from '../../src/theme/colors';
 
 export default function AddPetScreen() {
+  const [name, setName] = useState('');
+  const [breed, setBreed] = useState('');
+  const [age, setAge] = useState('');
+
   return (
     <Screen>
       <DisplayText>Add Pet</DisplayText>
@@ -19,18 +24,24 @@ export default function AddPetScreen() {
           placeholder="Pet Name"
           placeholderTextColor={colors.muted}
           style={styles.input}
+          value={name}
+          onChangeText={setName}
         />
 
         <TextInput
           placeholder="Breed"
           placeholderTextColor={colors.muted}
           style={styles.input}
+          value={breed}
+          onChangeText={setBreed}
         />
 
         <TextInput
           placeholder="Age (example: 2 years)"
           placeholderTextColor={colors.muted}
           style={styles.input}
+          value={age}
+          onChangeText={setAge}
         />
       </View>
 
