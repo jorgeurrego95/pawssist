@@ -13,14 +13,24 @@ export default function AddPetScreen() {
   const [name, setName] = useState('');
   const [breed, setBreed] = useState('');
   const [age, setAge] = useState('');
+  const [error, setError] = useState('');
 
   function handleSavePet() {
+    const cleanName = name.trim();
+    const cleanBreed = breed.trim();
+    const cleanAge = age.trim();
+
+    if (!cleanName) {
+      setError('Pet name is required.');
+      return;
+    }
+
     addPet({
-      id: name.toLowerCase().replaceAll(' ', '-'),
-      name,
+      id: cleanName.toLowerCase().replaceAll(' ', '-'),
+      name: cleanName,
       species: 'dog',
-      breed,
-      age,
+      breed: cleanBreed || 'Not added yet',
+      age: cleanAge || 'Not added yet',
       weightKg: 0,
       nextVaccine: 'No upcoming vaccines added',
       food: 'No food plan added',
@@ -62,6 +72,8 @@ export default function AddPetScreen() {
           value={age}
           onChangeText={setAge}
         />
+
+        {error ? <Body style={styles.error}>{error}</Body> : null}
       </View>
 
       <View style={styles.actions}>
@@ -92,6 +104,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 16,
+  },
+  error: {
+    color: '#DC2626',
   },
   actions: {
     marginTop: 24,
