@@ -10,6 +10,7 @@ type PetContextValue = {
 };
 
 const ACTIVE_PET_STORAGE_KEY = 'pawssist-active-pet-id';
+const PETS_STORAGE_KEY = 'pawssist-pets';
 
 const defaultPets: Pet[] = [
   {
@@ -43,6 +44,18 @@ export function PetProvider({ children }: { children: ReactNode }) {
   const [activePetId, setActivePetId] = useState('bella');
 
   useEffect(() => {
+    async function loadPets() {
+      const savedPets = await AsyncStorage.getItem(PETS_STORAGE_KEY);
+
+      if (savedPets) {
+        setPets(JSON.parse(savedPets));
+      }
+    }
+
+    loadPets();
+  }, []);
+
+  useEffect(() => {
     async function loadActivePet() {
       const savedPetId = await AsyncStorage.getItem(ACTIVE_PET_STORAGE_KEY);
 
@@ -61,9 +74,14 @@ export function PetProvider({ children }: { children: ReactNode }) {
     await AsyncStorage.setItem(ACTIVE_PET_STORAGE_KEY, id);
   }
 
-  function addPet(pet: Pet) {
-    setPets((currentPets) => [...currentPets, pet]);
+  async function addPet(pet: Pet) {
+    const updatedPets = [...pets, pet];
+
+    setPets(updatedPets);
     setActivePetId(pet.id);
+
+    await AsyncStorage.setItem(PETS_STORAGE_KEY, JSON.stringify(updatedPets));
+    await AsyncStorage.setItem(ACTIVE_PET_STORAGE_KEY, pet.id);
   }
 
   return (
