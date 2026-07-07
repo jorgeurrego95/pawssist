@@ -6,6 +6,7 @@ type PetContextValue = {
   pets: Pet[];
   activePet: Pet;
   setActivePet: (id: string) => void;
+  addPet: (pet: Pet) => void;
 };
 
 const ACTIVE_PET_STORAGE_KEY = 'pawssist-active-pet-id';
@@ -38,7 +39,7 @@ const defaultPets: Pet[] = [
 const PetContext = createContext<PetContextValue | undefined>(undefined);
 
 export function PetProvider({ children }: { children: ReactNode }) {
-  const [pets] = useState(defaultPets);
+  const [pets, setPets] = useState(defaultPets);
   const [activePetId, setActivePetId] = useState('bella');
 
   useEffect(() => {
@@ -60,12 +61,18 @@ export function PetProvider({ children }: { children: ReactNode }) {
     await AsyncStorage.setItem(ACTIVE_PET_STORAGE_KEY, id);
   }
 
+  function addPet(pet: Pet) {
+    setPets((currentPets) => [...currentPets, pet]);
+    setActivePetId(pet.id);
+  }
+
   return (
     <PetContext.Provider
       value={{
         pets,
         activePet,
         setActivePet,
+        addPet,
       }}
     >
       {children}

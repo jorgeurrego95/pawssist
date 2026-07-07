@@ -5,11 +5,30 @@ import { Screen } from '../../src/components/Screen';
 import { DisplayText, Body } from '../../src/components/Text';
 import { Button } from '../../src/components/Button';
 import { colors } from '../../src/theme/colors';
+import { usePet } from '../../src/context/PetContext';
 
 export default function AddPetScreen() {
+  const { addPet } = usePet();
+
   const [name, setName] = useState('');
   const [breed, setBreed] = useState('');
   const [age, setAge] = useState('');
+
+  function handleSavePet() {
+    addPet({
+      id: name.toLowerCase().replaceAll(' ', '-'),
+      name,
+      species: 'dog',
+      breed,
+      age,
+      weightKg: 0,
+      nextVaccine: 'No upcoming vaccines added',
+      food: 'No food plan added',
+      conditions: ['None reported'],
+    });
+
+    router.back();
+  }
 
   return (
     <Screen>
@@ -49,7 +68,7 @@ export default function AddPetScreen() {
         <Button
           label="Save Pet"
           variant="cta"
-          onPress={() => router.back()}
+          onPress={handleSavePet}
         />
       </View>
     </Screen>
