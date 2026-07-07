@@ -17,6 +17,11 @@ export default function PetsScreen() {
         Manage every pet in your household and choose who Pawssist should focus on.
       </Body>
 
+      <Pressable style={styles.addPetButton}>
+        <Ionicons name="add-circle" size={24} color="#FFFFFF" />
+        <Body style={styles.addPetText}>Add Pet</Body>
+      </Pressable>
+
       <View style={styles.petList}>
         {pets.map((pet) => {
           const isActive = pet.id === activePet.id;
@@ -74,6 +79,21 @@ const styles = StyleSheet.create({
   subtitle: {
     marginTop: 8,
     color: colors.muted,
+  },
+  addPetButton: {
+    marginTop: 20,
+    backgroundColor: colors.primary,
+    borderRadius: 999,
+    paddingVertical: 14,
+    paddingHorizontal: 18,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  addPetText: {
+    color: '#FFFFFF',
+    fontWeight: '700',
   },
   petList: {
     marginTop: 24,
